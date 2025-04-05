@@ -21,9 +21,9 @@ int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 
-  auto node = std::make_shared<follow_person::TFSeekerNode>();
+  auto node = follow_person::TFSeekerNode::make_shared();
 
-  rclcpp::spin(node);
+  rclcpp::spin(node->get_node_base_interface());
 
   rclcpp::shutdown();
   return 0;

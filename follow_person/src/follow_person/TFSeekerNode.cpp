@@ -34,7 +34,7 @@ namespace follow_person
 
 TFSeekerNode::TFSeekerNode()
 : rclcpp_lifecycle::LifecycleNode("follow_person"),
-  tf_buffer_(get_clock()),
+  tf_buffer_(),
   tf_listener_(tf_buffer_),
   vlin_pid_(0.0, 1.0, 0.0, 0.7),
   vrot_pid_(0.0, 1.0, 0.3, 1.0)

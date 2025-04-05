@@ -9,6 +9,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(vision_msgs REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -20,6 +21,7 @@ set(dependencies
     tf2_geometry_msgs
     tf2
     tf2_ros
+    rclcpp_lifecycle
 )
 include_directories(include)
 

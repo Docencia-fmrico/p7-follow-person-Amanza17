@@ -12,6 +12,7 @@
   <depend>rclcpp</depend>
   <depend>roscpp</depend>
   <depend>geometry_msgs</depend>
+  <depend>rclcpp_lifecycle</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>vision_msgs</depend> 
   <depend>tf2</depend>
