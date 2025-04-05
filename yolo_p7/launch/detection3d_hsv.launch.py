@@ -35,13 +35,14 @@ def generate_launch_description():
                         ])
 
     convert_2d_3d = Node(package='yolo_p7',
-                        executable='detection_2d_to_3d_depth',
+                        executable='detection_2d_to_3d_pc2',
                         output='screen',
                         parameters=[param_file],
                         remappings=[
-                          ('input_depth', '/depth_raw/image'),
-                          ('input_detection_2d', 'detection_2d'),
-                          ('camera_info', '/rgb/camera_info'),
+                          ('input_pointcloud', "/rgbd_camera/points"),
+                          #('input_depth', '/rgbd_camera/depth_image'),
+                          ('input_detection_2d', 'detections_2d'),
+                          ('camera_info', '/rgbd_camera/camera_info'),
                           ('output_detection_3d', 'detection_3d'),
                         ])
 

@@ -24,17 +24,17 @@ DetectionTo3DfromDepthNode::DetectionTo3DfromDepthNode()
 : Node("detection_to_3d_from_depth_node"), camera_info_received_(false)
 {
   depth_sub_ = std::make_shared<message_filters::Subscriber<sensor_msgs::msg::Image>>(
-    this, "input_depth", rclcpp::SensorDataQoS().reliable().get_rmw_qos_profile());
+    this, "/rgbd_camera/depth_image", rclcpp::SensorDataQoS().reliable().get_rmw_qos_profile());
   detection_sub_ = std::make_shared<message_filters::Subscriber<vision_msgs::msg::Detection2DArray>>(
-    this, "input_detection_2d", rclcpp::SensorDataQoS().reliable().get_rmw_qos_profile());
+    this, "/sdetections_2d", rclcpp::SensorDataQoS().reliable().get_rmw_qos_profile());
   sync_ = std::make_shared<message_filters::Synchronizer<MySyncPolicy>>(
     MySyncPolicy(5), *depth_sub_, *detection_sub_);
   sync_->registerCallback(std::bind(&DetectionTo3DfromDepthNode::callback_sync, this, _1, _2));
 
   info_sub_ = create_subscription<sensor_msgs::msg::CameraInfo>(
-    "camera_info", 1, std::bind(&DetectionTo3DfromDepthNode::callback_info, this, _1));
+    "/rgbd_camera/camera_info", 1, std::bind(&DetectionTo3DfromDepthNode::callback_info, this, _1));
   detection_pub_ = create_publisher<vision_msgs::msg::Detection3DArray>(
-    "output_detection_3d", rclcpp::SensorDataQoS().reliable());
+    "/detections_3d", rclcpp::SensorDataQoS().reliable());
 }
 
 void DetectionTo3DfromDepthNode::callback_info(sensor_msgs::msg::CameraInfo::UniquePtr msg)
@@ -63,7 +63,7 @@ void DetectionTo3DfromDepthNode::callback_sync(
 
   vision_msgs::msg::Detection3DArray detections_3d_msg;
   detections_3d_msg.header = detection_msg->header;
-
+  fprintf(stderr, "DetectionTo3DfromDepthNode: alive");
   try {
     cv_bridge::CvImagePtr cv_depth_ptr = cv_bridge::toCvCopy(*image_msg, image_msg->encoding);
     for (const auto & detection : detection_msg->detections) {

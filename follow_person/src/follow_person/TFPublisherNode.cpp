@@ -52,10 +52,15 @@ void TFPublisherNode::callback_atrac(const vision_msgs::msg::Detection3DArray::S
 {
 
   auto detection = msg->detections[0];  // Primera detección
-
+/*
   float atrac_x = detection.bbox.center.position.z;
   float atrac_y = -detection.bbox.center.position.x;
   float atrac_z = -detection.bbox.center.position.y;
+*/ //clase
+
+  float atrac_x = detection.bbox.center.position.x;
+  float atrac_y = detection.bbox.center.position.y;
+  float atrac_z = detection.bbox.center.position.z;
 
   if (std::isnan(atrac_x)) {
     atrac_x = 0.0;
