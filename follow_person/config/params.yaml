@@ -1,0 +1,4 @@
+# Basic configuration parameters for the follow_person package
+yolo_parser_node:
+  ros__parameters:
+    object_to_detect: 0 #0 person 56 chair
